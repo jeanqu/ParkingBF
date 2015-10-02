@@ -22,18 +22,6 @@ angular.module('starter.services', [])
     lastText: 'La moto de Maman',
     //face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
     face: 'http://www.cer.asso.fr/images/slider/revolution/index/moto.png'
-  }, {
-    id: 3,
-    name: 'OR-562-FR',
-    lastText: 'Mon camion à moi',
-    //face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-    face: 'http://eu.mio.com/media/extras/extra_product_truck-mode.png'
-  }, {
-    id: 4,
-    name: 'AR-022-FR',
-    lastText: 'Ma voiture de fonction',
-    //face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-    face: 'http://lactu.pro/wp-content/uploads/2013/07/fonction.gif'
   }];
 
   return {

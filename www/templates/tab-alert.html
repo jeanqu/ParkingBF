@@ -1,25 +1,59 @@
 <ion-view view-title="Alerter">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableAlert">
-        ALERTE DE GROS PORC
-        
-    </ion-toggle>
-    <div class="list">
-	  <label class="item item-input">
-	    <input type="text" placeholder="Plaque">
-	  </label>
-	  <label class="item item-input">
-	    <input type="text" placeholder="Pays">
-	  </label>
-	  <label class="item item-input">
-	    <textarea placeholder="Commentaires"></textarea>
-	  </label>
-	</div>
+	    <div class="list">
+		  <label class="item item-input">
+		    <input type="text" placeholder="Tapez ici la plaque d'immatriculation">
+		  </label>
+		  <!--<label class="item item-input">
+		    <input type="text" placeholder="Pays">
+		  </label> -->
+		</div>
     </ion-list>
 
-	<button class="button bouton_alerter">
-		Envoyer
+	<div class="list_icons_alert">
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img537/9233/2FO2P8.jpg">
+
+			</img>
+		</div>
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img673/2694/QP6Rci.jpg">
+
+			</img>
+		</div>
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img537/4332/z2Em83.jpg">
+
+			</img>
+		</div>
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img910/7493/ksxZru.jpg">
+
+			</img>
+		</div>
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img537/1797/rUSvsK.jpg">
+
+			</img>
+		</div>
+		<div class="conteneur_icon_alert">
+			<img class="icon_alert" ng-src="http://imageshack.com/a/img661/7959/KGaqx1.jpg">
+
+			</img>
+		</div>
+	</div>
+
+
+    <ion-list>
+		  <label class="item item-input">
+		    <textarea placeholder="Commentaires"></textarea>
+		  </label>
+		</div>
+    </ion-list>
+
+	<button class="button button-positive bouton_lancer_alert">
+	  Envoyer
 	</button>
 
   </ion-content>
