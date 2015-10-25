@@ -1,10 +1,9 @@
-angular.module('starter.services', [])
-
+angular.module('starter.services', ['ngResource'])
+.factory('voiture', function ($resource) {
+      return $resource('http://localhost:5000/voiture');
+    })
 .factory('chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
+/*  var chats = [{
     id: 0,
     name: 'AB-725-FR',
     lastText: 'Ma belle berlingo',
@@ -39,5 +38,5 @@ angular.module('starter.services', [])
       }
       return null;
     }
-  };
+  };*/
 });
