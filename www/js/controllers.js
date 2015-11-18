@@ -3,6 +3,7 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('MesVoitureCtrl', function($scope, voiture) {
+  //alert('declaration controlleur');
   $scope.mesVoitures = voiture.query();
 })
 /*
@@ -57,4 +58,33 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableAlert: true
   };
+})
+
+.controller('UserCtrl', function ($scope, $http, $window) {
+  $scope.user = {username: 'john.doe', password: 'foobar'};
+  $scope.message = '';
+  $scope.login = function () {
+    $http
+      .post('http://localhost:5000/tryConnect', {user: $scope.user})
+      .success(function (data, status, headers, config) {
+        $window.sessionStorage.token = data.token;
+        $scope.message = 'Welcome';
+      })
+      .error(function (data, status, headers, config) {
+        delete $window.sessionStorage.token;
+        $scope.message = 'Error: Invalid user or password';
+      });
+  };
+  $scope.signin = function() {
+    $http
+      .post('http://localhost:5000/signin', {user: $scope.user})
+      .success(function (data, status, headers, config) {
+        $window.sessionStorage.token = data.token;
+        $scope.message = 'Inscription';
+      })
+      .error(function (data, status, headers, config) {
+        delete $window.sessionStorage.token;
+        $scope.message = 'Marche pas Marche pas!!';
+      });
+  }
 });

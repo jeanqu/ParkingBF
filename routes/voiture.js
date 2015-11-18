@@ -1,25 +1,27 @@
-var mesVoitures = [{
-    id: 0,
-    numImatriculation: 'AB-725-FR',
-    name: 'Ma belle berlingo',
-    //face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-    face: 'http://images.caradisiac.com/logos-ref/modele/modele--citroen-berlingo-multispace/S7-modele--citroen-berlingo-multispace.jpg'
-  }, {
-    id: 1,
-    numImatriculation: 'JI-564-MO',
-    name: 'La voiture de Papa',
-    //face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-    face: 'http://clairemedium.com/wp-content/uploads/2013/10/voiture-clairemedium.jpg'
-  }, {
-    id: 2,
-    numImatriculation: 'MP-184-ES',
-    name: 'La moto de Maman',
-    //face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-    face: 'http://www.cer.asso.fr/images/slider/revolution/index/moto.png'
-  }];
+var pg = require('pg');
+var voitureLib = require('../lib/voiture_class.js');
+var conString = "pg://postgres:jeanjean@localhost/maGrosseVoiture";
 
+var mesVoitures = [];
 
 exports.sendMyCars = function (req, res, next) {
-	console.log('Salut, j essaie d envoyer mes voitures');
-    res.send(mesVoitures);
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+
+      var requete = 'SELECT id_vehicule, code_vehicule, nom_vehicule, date_creation_vehicule, vehicule_fk_compte, vehicule_fk_etat, face \
+                                FROM vehicule'
+      var query = client.query(requete);
+
+      query.on('row', function(row) {
+        mesVoitures.push(new voitureLib.voitureDepuisSQL(row));
+      });
+
+      query.on('end', function() {
+        res.send(mesVoitures);
+      });
+    });
+
 };
