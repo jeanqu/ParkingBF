@@ -25,7 +25,7 @@
 }
 
 .conteneur_icon_alert:focus{
-	border: 10px solid #FFF;
+	border: 10px solid #888;
     border-radius: 20px;
     box-shadow: 0 0 2px #888;
     height: 75px;
