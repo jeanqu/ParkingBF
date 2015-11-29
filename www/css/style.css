@@ -14,17 +14,55 @@
 	margin-right: auto;
 	width: 300px;
 }
+
 .conteneur_icon_alert{
+	border: 6px solid #FFF;
+    border-radius: 20px;
+    box-shadow: 0 0 2px #888;
+    height: 75px;
+    width: 75px;
 	display:inline-block;
 }
-.icon_alert{
-	width: 75px;
-	height: 75px;
-	border-style: solid;
-    border-width: 2px;
-    margin: 10px;
 
+.conteneur_icon_alert:focus{
+	border: 10px solid #FFF;
+    border-radius: 20px;
+    box-shadow: 0 0 2px #888;
+    height: 75px;
+    width: 75px;
+	display:inline-block;
 }
+
+.icon_alert:focus { 
+	border: 6px solid #FFF;
+    border-radius: 20px;
+    box-shadow: 0 0 2px #888;
+    height: 75px;
+    width: 75px; 
+}
+
+.icon_alert {
+  border: 3px solid #FFF;
+  border-radius: 20px;
+  box-shadow: 0 0 2px #888;
+  height: 75px;
+  width: 75px;
+}
+
+/* css alert */
+
+.bouton_confirmation_alert {
+	margin: auto;
+	margin-top: 10px;
+	width: 49%;
+}
+
+.list_confirmation_alert {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .icon1{
 	background-image: url("/img/ionic.png");
 }

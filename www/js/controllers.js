@@ -28,6 +28,13 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('ConfirmationCtrl', function($scope) {
+  //confirmation controleur
+  $scope.settings = {
+    enableConfirmation: true
+  };
+})
+
 .controller('chatsCtrl', function($scope, chats, voiture) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
