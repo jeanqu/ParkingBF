@@ -72,6 +72,10 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableAlert: true
   };
+  $scope.iconeSelectionne = 0;
+  $scope.selectionerIcone = function(id_icone) {
+    $scope.iconeSelectionne = id_icone;
+  }
 })
 
 .controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', function($rootScope, $scope, $location, $window, Main) {

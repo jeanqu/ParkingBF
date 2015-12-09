@@ -29,7 +29,7 @@
 
 
     }
-    .mdT:active {
+    .mdT.active {
         width:85px;
         height:85px;
         border: 3px solid #2E9AFE;
