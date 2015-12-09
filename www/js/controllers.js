@@ -2,10 +2,21 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('MesVoitureCtrl', function($scope, voiture) {
-  //alert('declaration controlleur');
-  $scope.mesVoitures = voiture.query();
-})
+.controller('MesVoitureCtrl', ['$scope', '$window', 'voiture', function($scope, $window, voiture) {
+  voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) {
+      console.log(res);
+      if (res.type == false) {
+          alert(res.data)    
+      }
+      else 
+      {
+        alert('2');
+        $scope.mesVoitures = res
+      } 
+  }, function() {
+      alert('Une erreur!');
+  })
+}])
 /*
   $scope.remove = function(chat) {
     chats.remove(chat);
@@ -29,13 +40,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('chatsCtrl', function($scope, chats, voiture) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
   voiture.get();
   $scope.chats = chats.all();
   $scope.remove = function(chat) {
@@ -47,11 +51,14 @@ angular.module('starter.controllers', [])
   $scope.chat = chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', ['$scope', 'Main', function($scope, Main) {
   $scope.settings = {
     enableFriends: true
   };
-})
+  $scope.deconnect = function() {
+    Main.logout();
+  }
+}])
 
 .controller('AlertCtrl', function($scope) {
   //Alert controleur
@@ -60,31 +67,65 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('UserCtrl', function ($scope, $http, $window) {
+.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', function($rootScope, $scope, $location, $window, Main) {
   $scope.user = {username: 'john.doe', password: 'foobar'};
-  $scope.message = '';
-  $scope.login = function () {
-    $http
-      .post('http://localhost:5000/tryConnect', {user: $scope.user})
-      .success(function (data, status, headers, config) {
-        $window.sessionStorage.token = data.token;
-        $scope.message = 'Welcome';
+  var user = $scope.user;
+  $scope.login = function() {
+    Main.signin(user, function(res) {
+        if (res.type == false) {
+            alert(res.data)    
+        }
+        else if (res.head == "oui") 
+        {
+          $window.localStorage['token'] = res.token;
+          window.location = "#/tab/alert";
+        }
+        else 
+        {
+          //window.location = "/";  
+          $scope.message = res.message;
+        } 
+    }, function() {
+        $rootScope.error = 'Failed to signin';
+    })
+};
+
+$scope.signin = function() {
+  Main.save(user, function(res) {
+      console.log(res);
+      if (res.type == false) {
+          alert(res.data)
+      } 
+      else if (res.head == "oui") 
+      {
+        $localStorage.token = res.token;
+        $scope.message = res.message;
+      }
+      else 
+      {
+        //window.location = "/";  
+        $scope.message = res.message;
+      } 
+  }, function() {
+      $rootScope.error = 'Failed to signup';
+    })
+  };
+
+  $scope.me = function() {
+      Main.me(function(res) {
+          $scope.myDetails = res;
+      }, function() {
+          $rootScope.error = 'Failed to fetch details';
       })
-      .error(function (data, status, headers, config) {
-        delete $window.sessionStorage.token;
-        $scope.message = 'Error: Invalid user or password';
+  };
+
+  $scope.logout = function() {
+      Main.logout(function() {
+          window.location = "/"
+      }, function() {
+          alert("Failed to logout!");
       });
   };
-  $scope.signin = function() {
-    $http
-      .post('http://localhost:5000/signin', {user: $scope.user})
-      .success(function (data, status, headers, config) {
-        $window.sessionStorage.token = data.token;
-        $scope.message = 'Inscription';
-      })
-      .error(function (data, status, headers, config) {
-        delete $window.sessionStorage.token;
-        $scope.message = 'Marche pas Marche pas!!';
-      });
-  }
-});
+  $scope.token = $window.localStorage['token'];
+
+}]);

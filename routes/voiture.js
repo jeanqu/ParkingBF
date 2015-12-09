@@ -1,6 +1,7 @@
 var pg = require('pg');
 var voitureLib = require('../lib/voiture_class.js');
 var conString = "pg://postgres:jeanjean@localhost/maGrosseVoiture";
+var authentificate = "authentificate.js";
 
 var mesVoitures = [];
 

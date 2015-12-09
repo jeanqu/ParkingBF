@@ -18,10 +18,14 @@ app.use(bodyParser.json());
 app.post('/tryConnect', authControler.checkIfConnected);
 app.post('/signin', authControler.inscription);
 
-app.get('/voiture', voiture.sendMyCars);
+app.post('/voiture', authControler.ensureAuthorized, voiture.sendMyCars);
 
 app.set('port', process.env.PORT || 5000);
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+ 
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });

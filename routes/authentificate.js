@@ -1,61 +1,143 @@
 var pg = require('pg');
 var compteLib = require('../lib/compte_class.js');
+var global = require('../lib/global_var.js');
 var conString = "pg://postgres:jeanjean@localhost/maGrosseVoiture";
 var jwt = require('jsonwebtoken');
 
 var SECRET = 'OUAFouafouafoauaoufa';
 
+exports.ensureAuthorized = function (req, res, next) {
+    var bearerToken;
+    console.log('coucou c est moi ');
+    var bearerHeader = req.headers['authorization'];
+    console.log(bearerHeader);
+    if (typeof bearerHeader !== 'undefined') {
+        var bearer = bearerHeader.split(" ");
+        bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.send(403);
+    }
+}
+
 exports.checkIfConnected = function (req, res, next) {
-	console.log(req.body);
-	console.log('coucou gros porc');
-  res.send('JE SUIS LA');
+	var client = new pg.Client(conString);
+  var reponse = new global.reponses();
+  
+  client.connect(function(err) {
+    if(err) {
+      reponse.head = 'error';
+      reponse.message = 'Erreur serveur';
+      return res.send(reponse);
+    }
+
+    var requete = "SELECT loggin, mot_de_passe, date_creation_compte, token \
+                       FROM compte \
+                       WHERE loggin = '" + req.body.user.username + "' \
+                       AND mot_de_passe = '" + req.body.user.password + "';";
+    var query = client.query(requete, function(err, result) {
+        if(err) {
+          reponse.head = 'error';
+          reponse.message = 'Erreur serveur';
+          reponse.token = null;
+          return res.send(reponse);
+        }
+        else if (result.rows[0])
+        {
+          console.log('Bonne connection');
+          reponse.head = 'oui';
+          reponse.message = 'Bonne connection!';
+          reponse.token = result.rows[0].token;
+          return res.send(reponse);
+        }
+        else {
+          reponse.head = 'non';
+          reponse.message = 'Mauvais identifiants - Mots de passes';
+          reponse.token = null;
+          return res.send(reponse);
+        }
+    });
+  }); 
 };
 
 exports.inscription = function (req, res, next) {
   var client = new pg.Client(conString);
-
-  //TEST
-
-  var newToken = jwt.sign(req.body.user, SECRET);
-  var nouveauMec = new compteLib.FromDatas(null, req.body.user.username, req.body.user.password, null, newToken);
-
-  console.log(newToken);
+  var reponse = new global.reponses();
+  console.log(req.body.user);
+  var nouveauMec = new compteLib.FromDatas(null, req.body.user.username, req.body.user.password, null, null);
 
   client.connect(function(err) {
-      if(err) {
-        return console.error('could not connect to postgres', err);
-      }
+    if(err) {
+      reponse.head = 'error';
+      reponse.message = 'Erreur serveur';
+      return res.send(reponse);
+    }
+    else
+    {
+      var requete = "SELECT loggin, mot_de_passe, date_creation_compte, token \
+                     FROM compte \
+                     WHERE loggin = '" + req.body.user.username + "';";
 
-      var requete = 'INSERT INTO compte (id_compte, loggin, mot_de_passe, date_creation_compte, token) \
-                     VALUES (DEFAULT, "' + nouveauMec.loggin + '", "' + nouveauMec.mot_de_passe + '", now(), "' + nouveauMec.token + '");';
-      console.log(requete);
-      var query = client.query(requete);
+      var query = client.query(requete, function(err, result) {
+        if(err) {
+          reponse.head = 'error';
+          reponse.message = 'Erreur serveur';
+          return res.send(reponse);
+        }
+        else if (result.rows[0])
+        {
+          reponse.head = 'non';
+          reponse.message = 'Votre adresse mail est déjà utilisée';
+          return res.send(reponse);
+        }
+        else
+        {
+          var requete = "INSERT INTO compte (loggin, mot_de_passe, date_creation_compte, token) \
+                       VALUES ('" + nouveauMec.loggin + "', '" + nouveauMec.mot_de_passe + "', now(), NULL); \
+                       SELECT lastval() AS new_id;";
+          var query = client.query(requete, function(err, result) {
+            if (err){
+              reponse.head = 'error';
+              reponse.message = 'Erreur serveur 1';
+              return res.send(reponse);
+            }
+            else if (result.rows[0])
+            {
+              nouveauMec.id = result.rows[0].new_id;
+              console.log('nouvelle id: ' + nouveauMec.id);
 
-      query.on('error', function(error) {
-            console.log(error);
-        });
+              //Création nouveau token
+              var newToken = jwt.sign(nouveauMec, SECRET);
+              var requete = "UPDATE compte \
+                             SET token = '" + newToken + "' \
+                             WHERE id_compte = " + nouveauMec.id + ";";
 
-      query.on('end', function() {
-        res.send(nouveauMec);
+              console.log(requete);
+              var query = client.query(requete, function(err, result) {
+                if (err){
+                  reponse.head = 'error';
+                  reponse.message = 'Erreur serveur 2';
+                  return res.send(reponse);
+                }
+                else
+                {
+                  reponse.head = 'oui';
+                  reponse.message = 'membre crée';
+                  reponse.token = newToken;
+                  return res.send(reponse);
+                }
+              });
+            }
+            else{
+              reponse.head = 'error';
+              reponse.message = 'Erreur création membre';
+              return res.send(reponse);
+            }
+          });
+        }
       });
-    });
-  /*
-  if (!(req.body.user.username === 'john.doe' && req.body.user.password === 'foobar')) {
-    res.send(401, 'Wrong user or password');
-    return;
-  }
-
-  var profile = {
-    first_name: 'John',
-    last_name: 'Doe',
-    email: 'john@doe.com',
-    id: 123
-  };
-
-  // We are sending the profile inside the token
-  var token = jwt.sign(profile, secret, { expiresInMinutes: 60*5 });
-  console.log(token);
-  res.json({ token: token });*/
-  res.send('JE SUIS LA');
+    }
+  });
 };
 

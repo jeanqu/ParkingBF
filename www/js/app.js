@@ -39,14 +39,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   // Each tab has its own nav history stack:
-  .state('tab.connection', {
+  .state('connection', {
     url: '/connection',
-    views: {
-      'tab-connection': {
-        templateUrl: 'templates/tab-connection.html',
-        controller: 'UserCtrl'
-      }
-    }
+    templateUrl: 'templates/connection.html',
+    controller: 'UserCtrl'
   })
 
   .state('tab.dash', {
@@ -99,6 +95,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/alert');
+  $urlRouterProvider.otherwise('/connection');
 
-});
+})
+.config(['$httpProvider', function($httpProvider) { 
+  $httpProvider.interceptors.push(['$q', '$location', '$window', function($q, $location, $window) {
+      return {
+          'request': function (config) {
+              config.headers = config.headers || {};
+              if ($window.localStorage.getItem('token')) {
+                  config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
+              }
+              return config;
+          },
+          'responseError': function(response) {
+              if(response.status === 401 || response.status === 403) {
+                  $location.path('/signin');
+              }
+              return $q.reject(response);
+          }
+      };
+  }]);
+}]);;

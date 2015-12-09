@@ -10,7 +10,7 @@ CREATE TABLE compte
 	loggin CHAR(50),
 	mot_de_passe CHAR(50) NOT NULL,
 	date_creation_compte TIMESTAMP,
-	token VARCHAR(100)
+	token VARCHAR(500)
 );
 
 CREATE TABLE vehicule_etat
