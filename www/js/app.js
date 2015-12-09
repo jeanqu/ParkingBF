@@ -92,6 +92,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AlertCtrl'
       }
     }
+  })
+   
+  .state('tab.confirmation', {
+    url: '/confirmation',
+    views: {
+      'tab-confirmation': {
+        templateUrl: 'templates/tab-confirmation.html',
+        controller: 'ConfirmationCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

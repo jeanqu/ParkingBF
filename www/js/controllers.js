@@ -39,6 +39,13 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('ConfirmationCtrl', function($scope) {
+  //confirmation controleur
+  $scope.settings = {
+    enableConfirmation: true
+  };
+})
+
 .controller('chatsCtrl', function($scope, chats, voiture) {
   voiture.get();
   $scope.chats = chats.all();
