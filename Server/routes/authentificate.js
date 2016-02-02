@@ -7,17 +7,18 @@ var jwt = require('jsonwebtoken');
 var SECRET = 'OUAFouafouafoauaoufa';
 
 exports.ensureAuthorized = function (req, res, next) {
+    console.log('Je rejoins le serveur');
     var bearerToken;
-    console.log('coucou c est moi ');
     var bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader);
     if (typeof bearerHeader !== 'undefined') {
         var bearer = bearerHeader.split(" ");
         bearerToken = bearer[1];
         req.token = bearerToken;
         next();
     } else {
-        res.send(403);
+        console.log('retourne 403');
+        var reponse = new global.reponses(global.CAS_ERREUR_NON_CONNECTE);
+        res.send(reponse);
     }
 }
 

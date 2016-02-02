@@ -40,7 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
   .state('connection', {
-    url: '/connection',
+    url: '/connection/:redirection',
     templateUrl: 'templates/connection.html',
     controller: 'UserCtrl'
   })
@@ -105,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/connection');
+  $urlRouterProvider.otherwise('/connection/');
 
 })
 .config(['$httpProvider', function($httpProvider) { 
@@ -126,4 +126,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
       };
   }]);
-}]);;
+}]);

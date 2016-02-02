@@ -8,8 +8,17 @@ angular.module('starter.services', ['ngResource'])
   }
 }])
 .factory('globalVar', function() {
+  return {
+    /*Utilisé */
+
+    /*Non utilisé */
+    CAS_ERREUR_NON_CONNECTE : 1,
+    CAS_ERREUR_SERVEUR : 2,
+
+    NOMBRE_LOADER_ACTUEL : 0
+  }
 })
-.factory('Main', ['$http', '$window', '$location', function($http, $window, $location){
+.factory('Main', ['$http', '$window', '$location', 'globalVar', function($http, $window, $location, globalVar){
       var baseUrl = "http://localhost:5000";
       function changeUser(user) {
           angular.extend(currentUser, user);
@@ -56,18 +65,17 @@ angular.module('starter.services', ['ngResource'])
           me: function(success, error) {
             $http.get(baseUrl + '/me').success(success).error(error)
           },
-          logout: function(success) {
+          logout: function(redirect, success) {
             token = $window.localStorage.getItem('token');
             changeUser({});
             if (typeof token !== 'undefined' && token !== null) {
               $window.localStorage.removeItem('token');
             }
-            window.location = "/";
-          }/*,
-          getUserFromLocalToken: function() {
-            console.log(currentUser);
-             return currentUser;
-          }*/
+            if (typeof redirect !== 'undefined' && redirect !== null && redirect == globalVar.CAS_ERREUR_NON_CONNECTE)
+              window.location = "#/connection/" + globalVar.CAS_ERREUR_NON_CONNECTE;
+            else
+              window.location = "#/connection/"
+          }
       };
   }
 ]);

@@ -2,15 +2,20 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('MesVoitureCtrl', ['$scope', '$window', 'voiture', function($scope, $window, voiture) {
+.controller('MesVoitureCtrl', ['$scope', '$window', 'voiture', 'globalVar', 'Main', function($scope, $window, voiture, globalVar, Main) {
   voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) {
       console.log(res);
-      if (res.type == false) {
+      if (res.type == false) 
+      {
           alert(res.data)    
       }
-      else 
+      
+      if (res.head == globalVar.CAS_ERREUR_NON_CONNECTE)
       {
-        alert('2');
+        Main.logout(globalVar.CAS_ERREUR_NON_CONNECTE);
+      }
+      else
+      {
         $scope.mesVoitures = res
       } 
   }, function() {
@@ -78,7 +83,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', function($rootScope, $scope, $location, $window, Main) {
+.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', 'globalVar', '$stateParams', function($rootScope, $scope, $location, $window, Main, globalVar, $stateParams) {
   $scope.user = {username: 'john.doe', password: 'foobar'};
   var user = $scope.user;
   $scope.login = function() {
@@ -130,13 +135,14 @@ $scope.signin = function() {
       })
   };
 
-  $scope.logout = function() {
-      Main.logout(function() {
-          window.location = "/"
-      }, function() {
-          alert("Failed to logout!");
-      });
-  };
   $scope.token = $window.localStorage['token'];
 
+  if (typeof $stateParams.redirection !== 'undefined' && $stateParams.redirection !== null && $stateParams.redirection == globalVar.CAS_ERREUR_NON_CONNECTE)
+  {
+    $scope.blockRedirection = true;
+  }
+  else
+  {
+    $scope.blockRedirection = false;
+  }
 }]);
