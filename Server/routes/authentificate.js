@@ -14,11 +14,44 @@ exports.ensureAuthorized = function (req, res, next) {
         var bearer = bearerHeader.split(" ");
         bearerToken = bearer[1];
         req.token = bearerToken;
+
         next();
-    } else {
-        console.log('retourne 403');
-        var reponse = new global.reponses(global.CAS_ERREUR_NON_CONNECTE);
-        res.send(reponse);
+
+        /*var client = new pg.Client(conString);
+        var reponse = new global.reponses();
+        client.connect(function(err) {
+          if(err) {
+            reponse.head = 'error';
+            reponse.message = 'Erreur serveur';
+            return res.send(reponse);
+          }
+
+          var requete = "SELECT loggin, mot_de_passe, date_creation_compte, token \
+                             FROM compte \
+                             WHERE token = '" + req.token + "';" 
+          var query = client.query(requete, function(err, result) {
+              if(err) {
+                reponse.head = 'error';
+                reponse.message = 'Erreur serveur';
+                return res.send(reponse);
+              }
+              else if (result.rows[0])
+              {
+                console.log('Bonne connection');
+                next();
+              }
+              else {
+                console.log('mauvais token');
+                var reponse = new global.reponses(global.CAS_ERREUR_NON_CONNECTE);
+                return res.send(reponse);
+              }
+          });
+        }); */
+    } 
+    else {
+      console.log('retourne 403');
+      var reponse = new global.reponses(global.CAS_ERREUR_NON_CONNECTE);
+      res.send(reponse);
     }
 }
 

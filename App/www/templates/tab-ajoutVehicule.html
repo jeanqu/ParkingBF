@@ -1,0 +1,32 @@
+<ion-view view-title={{TEXT.VEHICULEADD_TITLE}}>
+  <ion-content>
+  	<div class="conteneur_loader" ng-if="loadingMesVoitures">
+      <div class="image">
+
+      </div>
+      <div class="texte">
+        {{TEXT.LOADING}}
+      </div>
+    </div>
+    <div class="conteneur_message_erreur" ng-if="erreurMesVoitures">
+      <div class="image">
+
+      </div>
+      <div class="texte">
+        {{TEXT.ERROR_SERVER}}
+      </div>
+    </div>
+    
+     <div class="list list-inset">
+        <form method="post">
+            <label class="item item-input">
+                <input type="text" placeholder={{TEXT.VEHICULEADD_NAME_PLACEHOLDER}} ng-model="newCar.name">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder={{TEXT.VEHICULEADD_MATRICULATION_PLACEHOLDER}} ng-model="newCar.matricule">
+            </label>
+        </form>
+        <button class="button icon-left ion-plus-circled button-positive" ng-click="ajouterVoiture(voiture)">{{TEXT.VEHICULEADD_BOUTTON_CONFIRMATE}}</button>
+      </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+{
+	"LOADING" : "Chargement...",
+	"ERROR_SERVER" : "Erreur Serveur",
+
+	"CONNECT_TITLE" : "Connexion",
+	"CONNECT_LOGIN" : "Connexion",
+	"CONNECT_SIGNUP" : "Inscription",
+	"CONNECT_PLACEHOLDER_MAIL" : "adresse mail",
+	"CONNECT_PLACEHOLDER_PASSWORD" : "mot de passe",
+
+	"ALERT_TITLE" : "Alerter",
+	"ALERT_ENTER_NUM_PLAQUE": "Entrez le numéro de la plaque d'immatriculation ici",
+	"ALERT_TEXT_COMMENT" : "Ajouter un commentaire",
+	"ALERT_BOUTON_ENVOYER" : "Envoyer",
+
+	"HISTORICAL_TITLE" : "Historique",
+
+	"CONFIRMATION_TITLE" : "Confirmation",
+	"CONFIRMATION_QUESTION_CONFIRM" : "Êtes-vous sùr d'envoyer le message à %PERSONNE%?",
+	"CONFIRMATION_BOUTON_NO" : "Annuler",
+	"CONFIRMATION_BOUTON_YES" : "Valider",
+
+	"VEHICULE_TITLE" : "Mes Véhicules",
+	"VEHICULE_NO_CARS" : "Pas de voitures",
+	"VEHICULE_ADD_ONE" : "Nouveau",
+
+	"VEHICULEADD_TITLE" : "Ajout Véhicule",
+	"VEHICULEADD_NAME_PLACEHOLDER" : "Nom donné au véhicule (ex: \"ma belle voiture, ...\")",
+	"VEHICULEADD_MATRICULATION_PLACEHOLDER" : "Votre numéro de plaque",
+	"VEHICULEADD_BOUTTON_CONFIRMATE" : "Ajouter",
+
+	"SETTUP_TITLE" : "Réglages",
+	"SETTUP_RECEIVE_NOTIFICATION" : "Recevoir des notifications",
+	"SETTUP_BOUTTON_DECONNECT" : "Déconnexion",
+	"SETTUP_CHANGE_LANGAGE" : "Changer langue"
+}

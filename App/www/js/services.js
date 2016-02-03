@@ -4,19 +4,26 @@ angular.module('starter.services', ['ngResource'])
   return {
     getAllMyCarFromToken: function(data, success, error) {
       $http.post(baseUrl + '/voiture', {token: data}).success(success).error(error);
+    },
+    addACar: function(data, success, error) {
+      $http.post(baseUrl + '/addAcar', {newCar: data}).success(success).error(error);
     }
   }
 }])
-.factory('globalVar', function() {
+/*.factory('globalVar', function() {
   return {
-    /*Utilisé */
 
-    /*Non utilisé */
     CAS_ERREUR_NON_CONNECTE : 1,
     CAS_ERREUR_SERVEUR : 2,
 
     NOMBRE_LOADER_ACTUEL : 0
   }
+})*/
+.constant("globalVar", {
+        "CAS_ERREUR_NON_CONNECTE": 1,
+        "CAS_ERREUR_SERVEUR": 2,
+
+        "LIST_LANGAGES" : ["fr", "en"]
 })
 .factory('Main', ['$http', '$window', '$location', 'globalVar', function($http, $window, $location, globalVar){
       var baseUrl = "http://localhost:5000";
@@ -78,5 +85,26 @@ angular.module('starter.services', ['ngResource'])
           }
       };
   }
-]);
+])
+.service('translationService', ["$resource", "$window", "globalVar", function($resource, $window, globalVar) {
+  this.getCurrentLangage = function() {
+    return $window.localStorage.getItem('langage');
+  };  
+  this.putLangageInLocalStorage = function(newLangage) {
+    if (globalVar.LIST_LANGAGES.indexOf(newLangage) >= 0)
+    {
+      $window.localStorage['langage'] = newLangage;
+    }
+    else
+    {
+      $window.localStorage['langage'] = 'en';
+    }
+  };
+  this.getTranslation = function($rootScope, language) {
+    var languageFilePath = 'translations/' + language + '.json';
+    $resource(languageFilePath).get(function (data) {
+      $rootScope.TEXT = data;
+    });
+  };
+}]);
 

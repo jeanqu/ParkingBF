@@ -1,0 +1,30 @@
+{
+	"LOADING" : "Loading...",
+	"ERROR_SERVER" : "Error server",
+
+	"CONNECT_TITLE" : "Connection",
+	"CONNECT_LOGIN" : "Login",
+	"CONNECT_SIGNUP" : "Signup",
+	"CONNECT_PLACEHOLDER_MAIL" : "mail",
+	"CONNECT_PLACEHOLDER_PASSWORD" : "password",
+
+	"ALERT_TITLE" : "Alert",
+	"ALERT_ENTER_NUM_PLAQUE" : "Write plate number here",
+	"ALERT_TEXT_COMMENT" : "Add a comment",
+	"ALERT_BOUTON_ENVOYER" : "Send",
+
+	"HISTORICAL_TITLE" : "Historical",
+
+	"CONFIRMATION_TITLE" : "Confirmation",
+	"CONFIRMATION_QUESTION_CONFIRM": "Do you confirm sending the following message to %PERSONNE%?",
+	"CONFIRMATION_BOUTON_NO": "Back",
+	"CONFIRMATION_BOUTON_YES": "Confirm",
+
+	"VEHICULE_TITLE" : "My cars",
+	"VEHICULE_NO_CARS" : "No cars",
+
+	"SETTUP_TITLE" : "Setup",
+	"SETTUP_RECEIVE_NOTIFICATION" : "Receive notifications",
+	"SETTUP_BOUTTON_DECONNECT" : "Deconnexion",
+	"SETTUP_CHANGE_LANGAGE" : "Change langage"
+}

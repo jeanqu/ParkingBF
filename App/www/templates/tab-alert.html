@@ -1,10 +1,10 @@
-<ion-view view-title="Alert">
+<ion-view view-title={{TEXT.ALERT_TITLE}}>
   <ion-content>
     <ion-list>
 	    <div class="list">
 	      <br></br>
 		  <label class="item item-input">
-		    <input type="text" placeholder="Write plate number here">
+		    <input type="text" placeholder={{TEXT.ALERT_ENTER_NUM_PLAQUE}}>
 		  </label>
 		  <!--<label class="item item-input">
 		    <input type="text" placeholder="Pays">
@@ -27,39 +27,16 @@
 <br></br>
 
 
-<!--
-
-	
-<button class="mdT mdI1" ></button>
-
-
-<button class="mdT mdI2" ></button>
-<button class="mdT mdI3" ></button>
-<button class="mdT mdI4" ></button>
-
- <input type="checkbox" id="btnControl"/>
-<label class="btn" for="btnControl"><img src="/img/Icon_Double_File.jpg" id="btnLeft" /></label>
-<label class="btn" for="btnControl"><img src="/img/Icon_Fourriere.jpg" id="btnLeft" /></label>
-<label class="btn" for="btnControl"><img src="/img/Icon_no-parking.jpg" id="btnLeft" /></label>
-<label class="btn" for="btnControl"><img src="/img/Icon_Phares.jpg" id="btnLeft" /></label>
-<label class="btn" for="btnControl"><img src="/img/Icon_Portes_Ouvertes.jpg" id="btnLeft" /></label>
-<label class="btn" for="btnControl"><img src="/img/Icon_Roue_Crevee.jpg" id="btnLeft" /></label>
-
-	<div class="list_icons_alert"></div> -->
-
-
-
-
-    <ion-list>
-		  <label class="item item-input">
-		    <textarea placeholder="Add a comment"></textarea>
-		  </label>
-		</div>
-    </ion-list>
-    <br></br>
-	<a href="#/tab/confirmation" class="button button-positive bouton_lancer_alert">
-	  Send
-	</a>
+<ion-list>
+	  <label class="item item-input">
+	    <textarea placeholder={{TEXT.ALERT_TEXT_COMMENT}}></textarea>
+	  </label>
+	</div>
+</ion-list>
+<br></br>
+<a href="#/tab/confirmation" class="button button-positive bouton_lancer_alert">
+  {{TEXT.ALERT_BOUTON_ENVOYER}}
+</a>
 
   </ion-content>
 </ion-view>

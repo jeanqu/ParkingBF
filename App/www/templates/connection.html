@@ -1,4 +1,4 @@
-<ion-view view-title="connection" name="connection">
+<ion-view view-title={{CONNECT_TITLE}} name="connection">
   <ion-content class="padding">
       <div class="block_redirection">
         <div class="message_redirection" ng-if="blockRedirection">
@@ -8,15 +8,15 @@
       <div class="list list-inset">
         <form method="post">
             <label class="item item-input">
-                <input type="text" placeholder="Username" ng-model="user.username">
+                <input type="text" placeholder={{TEXT.CONNECT_PLACEHOLDER_MAIL}} ng-model="user.username">
             </label>
             <label class="item item-input">
-                <input type="password" placeholder="Password" ng-model="user.password">
+                <input type="password" placeholder={{TEXT.CONNECT_PLACEHOLDER_PASSWORD}} ng-model="user.password">
             </label>
         </form>
       </div>
-      <button class="button button-block button-positive" ng-click="login()">Login</button>
-      <button class="button button-block button-positive" ng-click="signin()">S'inscrire</button>
+      <button class="button button-block button-positive" ng-click="login()">{{TEXT.CONNECT_LOGIN}}</button>
+      <button class="button button-block button-positive" ng-click="signin()">{{TEXT.CONNECT_SIGNUP}}</button>
       <div>
         {{message}}
       </div>

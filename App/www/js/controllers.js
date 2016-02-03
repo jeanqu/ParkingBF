@@ -3,24 +3,51 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('MesVoitureCtrl', ['$scope', '$window', 'voiture', 'globalVar', 'Main', function($scope, $window, voiture, globalVar, Main) {
+  
+  $scope.loadingMesVoitures = true;
+  $scope.erreurMesVoitures = false;
+  $scope.pasDeVoitures = false;
+  $scope.newCar = {name: null, matricule: null};
+
   voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) {
-      console.log(res);
-      if (res.type == false) 
+      if (res.type === false) 
       {
-          alert(res.data)    
+          $scope.loadingMesVoitures = false;
+          $scope.erreurMesVoitures = true;
       }
-      
-      if (res.head == globalVar.CAS_ERREUR_NON_CONNECTE)
+      else if (res.head === globalVar.CAS_ERREUR_NON_CONNECTE)
       {
+        $scope.loadingMesVoitures = false;
         Main.logout(globalVar.CAS_ERREUR_NON_CONNECTE);
+      }
+      else if (res.length === 0)
+      {
+        $scope.mesVoitures = [];
+        $scope.pasDeVoitures = true;
+        $scope.loadingMesVoitures = false;
       }
       else
       {
-        $scope.mesVoitures = res
+        $scope.mesVoitures = res;
+        $scope.loadingMesVoitures = false;
       } 
   }, function() {
-      alert('Une erreur!');
-  })
+      $scope.loadingMesVoitures = false;
+      $scope.erreurMesVoitures = true;
+  });
+
+  $scope.ajouterVoiture = function() 
+  {
+    voiture.addACar($scope.newCar, function(res) 
+      {
+        
+      }, function() 
+      {
+          $scope.loadingMesVoitures = false;
+          $scope.erreurMesVoitures = true;
+      }
+    );
+  }
 }])
 /*
   $scope.remove = function(chat) {
@@ -63,13 +90,31 @@ angular.module('starter.controllers', [])
   $scope.chat = chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', ['$scope', 'Main', function($scope, Main) {
+.controller('AccountCtrl', ['$rootScope', '$scope', 'Main', 'globalVar', 'translationService',  function($rootScope, $scope, Main, globalVar, translationService) {
+  $scope.showLangages = false;
+  $scope.listLangages = globalVar.LIST_LANGAGES;
+  $scope.chosenLanguage = translationService.getCurrentLangage();
   $scope.settings = {
     enableFriends: true
   };
   $scope.deconnect = function() {
     Main.logout();
-  }
+  };
+
+  $scope.ShowLangages = function() {
+    if ($scope.showLangages === false){
+      $scope.showLangages = true;
+    }
+    else
+    {
+      $scope.showLangages = false;
+    }
+  };
+
+  $scope.changeLangage = function(langage) {
+    translationService.putLangageInLocalStorage(langage);
+    translationService.getTranslation($rootScope, langage);
+  };
 }])
 
 .controller('AlertCtrl', function($scope) {
@@ -83,8 +128,9 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', 'globalVar', '$stateParams', function($rootScope, $scope, $location, $window, Main, globalVar, $stateParams) {
+.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', 'globalVar', '$stateParams', 'translationService', function($rootScope, $scope, $location, $window, Main, globalVar, $stateParams, translationService) {
   $scope.user = {username: 'john.doe', password: 'foobar'};
+
   var user = $scope.user;
   $scope.login = function() {
     Main.signin(user, function(res) {

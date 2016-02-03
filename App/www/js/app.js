@@ -64,6 +64,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+  .state('tab.ajoutVehicule', {
+      url: '/ajoutVehicule',
+      views: {
+        'tab-ajoutVehicule': {
+          templateUrl: 'templates/tab-ajoutVehicule.html',
+          controller: 'MesVoitureCtrl'
+        }
+      }
+    })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -126,4 +135,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
       };
   }]);
+}])
+.run(["$rootScope", "translationService", function ($rootScope, translationService) {
+  var langage = null;
+  langage = translationService.getCurrentLangage();
+  if (langage == null || langage == undefined)
+  {
+    langage = 'fr';
+    translationService.putLangageInLocalStorage(langage);
+  }
+  translationService.getTranslation($rootScope, langage);
 }]);

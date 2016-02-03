@@ -85,3 +85,23 @@
 .icon1{
 	background-image: url("/img/ionic.png");
 }
+
+/* css voitures */
+.conteneur_loader {
+    text-align: center;
+    margin: auto;
+}
+.conteneur_loader .image {
+    background-image: url("/img/gif-load1.gif");
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}
+.conteneur_message_erreur {
+    text-align: center;
+    margin: auto;
+}
+.conteneur_message_pas_de_voitures{
+    text-align: center;
+    margin: auto;
+}

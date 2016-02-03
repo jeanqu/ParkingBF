@@ -1,11 +1,25 @@
-<ion-view view-title="Réglages">
+<ion-view view-title={{TEXT.SETTUP_TITLE}}>
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Recevoir des notifications
-    </ion-toggle>
+	    <ion-toggle  ng-model="settings.enableFriends">
+	        {{TEXT.SETTUP_RECEIVE_NOTIFICATION}}
+	    </ion-toggle>
     </ion-list>
-    <button class="button button-block button-positive" ng-click="deconnect()">Déconnexion</button>
+    <button class="button button-block button-positive" ng-click="deconnect()">{{TEXT.SETTUP_BOUTTON_DECONNECT}}</button>
+    <ion-item class="button_change_langage item-remove-animate item-avatar item-icon-right" ng-click="ShowLangages()">
+    	<p>{{TEXT.SETTUP_CHANGE_LANGAGE}}</p>
+    	<div ng-if="!showLangages">
+    		<i class="icon ion-chevron-down icon-accessory"></i>
+    	</div>
+    	<div ng-if="showLangages">
+    		<i class="icon ion-chevron-up icon-accessory"></i>
+    	</div>
+	</ion-item>
+	<ion-list ng-if="showLangages">
+		<ion-radio ng-repeat="langage in listLangages" ng-value={{langage}} ng-model="chosenLanguage" ng-click="changeLangage(langage)">
+        	<p>{{langage}}</p>
+    	</ion-radio>
+    </ion-list>
   </ion-content>
 </ion-view>
 

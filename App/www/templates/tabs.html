@@ -6,30 +6,30 @@ navigation history that also transitions its views in and out.
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
   <!-- Alert tab -->
-  <ion-tab title="Alerter" icon-off="ion-alert" icon-on="ion-alert" href="#/tab/alert">
+  <ion-tab title={{TEXT.ALERT_TITLE}} icon-off="ion-alert" icon-on="ion-alert" href="#/tab/alert">
     <ion-nav-view name="tab-alert"></ion-nav-view>
   </ion-tab>
 
   <!-- Dashboard Tab -->
-  <ion-tab title="Historique" icon-off="ion-ios-book" icon-on="ion-ios-book" href="#/tab/dash">
+  <ion-tab title={{TEXT.HISTORICAL_TITLE}} icon-off="ion-ios-book" icon-on="ion-ios-book" href="#/tab/dash">
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 
   <!-- chats Tab -->
-  <ion-tab title="Mes Véhicules" icon-off="ion-android-car" icon-on="ion-android-car" href="#/tab/mesVoitures">
+  <ion-tab title={{TEXT.VEHICULE_TITLE}} icon-off="ion-android-car" icon-on="ion-android-car" href="#/tab/mesVoitures">
     <ion-nav-view name="tab-mesVoitures"></ion-nav-view>
   </ion-tab>
 
   <!-- Account Tab -->
-  <ion-tab title="Réglages" icon-off="ion-android-settings" icon-on="ion-android-settings" href="#/tab/account">
+  <ion-tab title={{TEXT.SETTUP_TITLE}} icon-off="ion-android-settings" icon-on="ion-android-settings" href="#/tab/account">
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab><ion-nav-view name="connection"></ion-nav-view></ion-tab>
-
 <!-- Ici les pages qu'on ne veut pas apercevoir dans la nav bar du bas-->
+<ion-tab><ion-nav-view name="connection"></ion-nav-view></ion-tab>
 
 <ion-tab><ion-nav-view name="tab-confirmation"></ion-nav-view></ion-tab>
+<ion-tab><ion-nav-view name="tab-ajoutVehicule"></ion-nav-view></ion-tab>
 
 
 </ion-tabs>

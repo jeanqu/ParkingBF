@@ -19,6 +19,7 @@ app.post('/tryConnect', authControler.checkIfConnected);
 app.post('/signin', authControler.inscription);
 
 app.post('/voiture', authControler.ensureAuthorized, voiture.sendMyCars);
+app.post('/addACar', authControler.ensureAuthorized, voiture.addACar);
 
 app.set('port', process.env.PORT || 5000);
 
