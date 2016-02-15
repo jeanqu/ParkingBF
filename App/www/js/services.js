@@ -20,8 +20,11 @@ angular.module('starter.services', ['ngResource'])
   }
 })*/
 .constant("globalVar", {
-        "CAS_ERREUR_NON_CONNECTE": 1,
-        "CAS_ERREUR_SERVEUR": 2,
+        "CAS_ERREUR_NON_CONNECTE" : 1,
+        "CAS_ERREUR_SERVEUR" : 2,
+        "CAS_REUSSITE" : 3,
+        "CAS_ERREUR_DATABASE" : 4,
+        "CAS_COMPTE_DEJA_UTILISE" : 5,
 
         "LIST_LANGAGES" : ["fr", "en"]
 })
@@ -29,7 +32,7 @@ angular.module('starter.services', ['ngResource'])
       var baseUrl = "http://localhost:5000";
       function changeUser(user) {
           angular.extend(currentUser, user);
-      }
+      };
 
       function urlBase64Decode(str) {
           var output = str.replace('-', '+').replace('_', '/');
@@ -46,7 +49,7 @@ angular.module('starter.services', ['ngResource'])
                   throw 'Illegal base64url string!';
           }
           return window.atob(output);
-      }
+      };
 
       function getUserFromToken() {
           var token = $window.localStorage.getItem('token');
@@ -56,7 +59,7 @@ angular.module('starter.services', ['ngResource'])
               user = JSON.parse(urlBase64Decode(encoded));
           }
           return user;
-      }
+      };
 
       var currentUser = getUserFromToken();
 
@@ -82,6 +85,9 @@ angular.module('starter.services', ['ngResource'])
               window.location = "#/connection/" + globalVar.CAS_ERREUR_NON_CONNECTE;
             else
               window.location = "#/connection/"
+          },
+          setNewToken: function(token, success) {
+            $window.localStorage['token'] = token;
           }
       };
   }

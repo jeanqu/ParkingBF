@@ -1,12 +1,16 @@
 {
 	"LOADING" : "Chargement...",
 	"ERROR_SERVER" : "Erreur Serveur",
+	"ERROR_DATABASE" : "Erreur avec la base de donnée",
 
 	"CONNECT_TITLE" : "Connexion",
 	"CONNECT_LOGIN" : "Connexion",
 	"CONNECT_SIGNUP" : "Inscription",
 	"CONNECT_PLACEHOLDER_MAIL" : "adresse mail",
 	"CONNECT_PLACEHOLDER_PASSWORD" : "mot de passe",
+	"CONNECT_WRONG_IDENTIFICATION" : "Mauvais identifiants - Mots de passes",
+	"CONNECT_INSCRIPTION_MAIL_ALREADY-USED" : "Votre adresse mail est déjà utilisée",
+	"CONNECT_CREATION_MEMBER" : "Membre crée",
 
 	"ALERT_TITLE" : "Alerter",
 	"ALERT_ENTER_NUM_PLAQUE": "Entrez le numéro de la plaque d'immatriculation ici",

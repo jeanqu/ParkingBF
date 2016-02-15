@@ -9,7 +9,8 @@ angular.module('starter.controllers', [])
   $scope.pasDeVoitures = false;
   $scope.newCar = {name: null, matricule: null};
 
-  voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) {
+  voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) 
+  {
       if (res.type === false) 
       {
           $scope.loadingMesVoitures = false;
@@ -20,18 +21,19 @@ angular.module('starter.controllers', [])
         $scope.loadingMesVoitures = false;
         Main.logout(globalVar.CAS_ERREUR_NON_CONNECTE);
       }
-      else if (res.length === 0)
+      else if (res.mesVoitures.length === 0)
       {
         $scope.mesVoitures = [];
         $scope.pasDeVoitures = true;
         $scope.loadingMesVoitures = false;
       }
-      else
+      else if (res.head === globalVar.CAS_REUSSITE)
       {
-        $scope.mesVoitures = res;
+        $scope.mesVoitures = res.mesVoitures;
         $scope.loadingMesVoitures = false;
       } 
-  }, function() {
+  }, function() 
+  {
       $scope.loadingMesVoitures = false;
       $scope.erreurMesVoitures = true;
   });
@@ -40,7 +42,7 @@ angular.module('starter.controllers', [])
   {
     voiture.addACar($scope.newCar, function(res) 
       {
-        
+
       }, function() 
       {
           $scope.loadingMesVoitures = false;
@@ -128,27 +130,29 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', 'globalVar', '$stateParams', 'translationService', function($rootScope, $scope, $location, $window, Main, globalVar, $stateParams, translationService) {
+.controller('UserCtrl', ['$rootScope', '$scope', '$location', '$window', 'Main', 'globalVar', '$stateParams', function($rootScope, $scope, $location, $window, Main, globalVar, $stateParams) {
   $scope.user = {username: 'john.doe', password: 'foobar'};
-
   var user = $scope.user;
   $scope.login = function() {
     Main.signin(user, function(res) {
         if (res.type == false) {
-            alert(res.data)    
+            $scope.message = $rootScope.TEXT.ERROR_SERVER;    
         }
-        else if (res.head == "oui") 
+        else if (res.head == globalVar.CAS_ERREUR_SERVEUR)
         {
-          $window.localStorage['token'] = res.token;
+          $scope.message = $rootScope.TEXT.ERROR_SERVER;
+        } 
+        else if (res.head == globalVar.CAS_ERREUR_NON_CONNECTE)
+        {
+          $scope.message = $rootScope.TEXT.CONNECT_WRONG_IDENTIFICATION;
+        } 
+        else if (res.head == globalVar.CAS_REUSSITE) 
+        {
+          Main.setNewToken(res.token);
           window.location = "#/tab/alert";
         }
-        else 
-        {
-          //window.location = "/";  
-          $scope.message = res.message;
-        } 
     }, function() {
-        $rootScope.error = 'Failed to signin';
+        $scope.message = $rootScope.TEXT.ERROR_SERVER; 
     })
 };
 
@@ -156,16 +160,22 @@ $scope.signin = function() {
   Main.save(user, function(res) {
       console.log(res);
       if (res.type == false) {
-          alert(res.data)
-      } 
-      else if (res.head == "oui") 
+          $scope.message = $rootScope.TEXT.ERROR_SERVER;    
+      }
+      else if (res.head == globalVar.CAS_ERREUR_SERVEUR)
       {
-        $localStorage.token = res.token;
-        $scope.message = res.message;
+        $scope.message = $rootScope.TEXT.ERROR_SERVER;
+      } 
+      else if (res.head == globalVar.CAS_COMPTE_DEJA_UTILISE)
+      {
+        $scope.message = $rootScope.TEXT.CONNECT_INSCRIPTION_MAIL_ALREADY;
+      } 
+      else if (res.head == globalVar.CAS_REUSSITE)  
+      {
+        $scope.message = $rootScope.TEXT.CONNECT_CREATION_MEMBER;
       }
       else 
-      {
-        //window.location = "/";  
+      { 
         $scope.message = res.message;
       } 
   }, function() {

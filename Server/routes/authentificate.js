@@ -7,7 +7,6 @@ var jwt = require('jsonwebtoken');
 var SECRET = 'OUAFouafouafoauaoufa';
 
 exports.ensureAuthorized = function (req, res, next) {
-    console.log('Je rejoins le serveur');
     var bearerToken;
     var bearerHeader = req.headers['authorization'];
     if (typeof bearerHeader !== 'undefined') {
@@ -61,8 +60,7 @@ exports.checkIfConnected = function (req, res, next) {
   
   client.connect(function(err) {
     if(err) {
-      reponse.head = 'error';
-      reponse.message = 'Erreur serveur';
+      reponse.head = global.CAS_ERREUR_SERVEUR;
       return res.send(reponse);
     }
 
@@ -72,22 +70,19 @@ exports.checkIfConnected = function (req, res, next) {
                        AND mot_de_passe = '" + req.body.user.password + "';";
     var query = client.query(requete, function(err, result) {
         if(err) {
-          reponse.head = 'error';
-          reponse.message = 'Erreur serveur';
+          reponse.head = global.CAS_ERREUR_SERVEUR;
           reponse.token = null;
           return res.send(reponse);
         }
         else if (result.rows[0])
         {
           console.log('Bonne connection');
-          reponse.head = 'oui';
-          reponse.message = 'Bonne connection!';
+          reponse.head = global.CAS_REUSSITE;
           reponse.token = result.rows[0].token;
           return res.send(reponse);
         }
         else {
-          reponse.head = 'non';
-          reponse.message = 'Mauvais identifiants - Mots de passes';
+          reponse.head = global.CAS_ERREUR_NON_CONNECTE;
           reponse.token = null;
           return res.send(reponse);
         }
@@ -103,8 +98,7 @@ exports.inscription = function (req, res, next) {
 
   client.connect(function(err) {
     if(err) {
-      reponse.head = 'error';
-      reponse.message = 'Erreur serveur';
+      reponse.head = global.CAS_ERREUR_SERVEUR;
       return res.send(reponse);
     }
     else
@@ -115,14 +109,12 @@ exports.inscription = function (req, res, next) {
 
       var query = client.query(requete, function(err, result) {
         if(err) {
-          reponse.head = 'error';
-          reponse.message = 'Erreur serveur';
+          reponse.head = global.CAS_ERREUR_SERVEUR;
           return res.send(reponse);
         }
         else if (result.rows[0])
         {
-          reponse.head = 'non';
-          reponse.message = 'Votre adresse mail est déjà utilisée';
+          reponse.head = global.CAS_COMPTE_DEJA_UTILISE;
           return res.send(reponse);
         }
         else
@@ -132,8 +124,7 @@ exports.inscription = function (req, res, next) {
                        SELECT lastval() AS new_id;";
           var query = client.query(requete, function(err, result) {
             if (err){
-              reponse.head = 'error';
-              reponse.message = 'Erreur serveur 1';
+              reponse.head = global.CAS_ERREUR_SERVEUR;
               return res.send(reponse);
             }
             else if (result.rows[0])
@@ -150,22 +141,19 @@ exports.inscription = function (req, res, next) {
               console.log(requete);
               var query = client.query(requete, function(err, result) {
                 if (err){
-                  reponse.head = 'error';
-                  reponse.message = 'Erreur serveur 2';
+                  reponse.head = global.CAS_ERREUR_SERVEUR;
                   return res.send(reponse);
                 }
                 else
                 {
-                  reponse.head = 'oui';
-                  reponse.message = 'membre crée';
+                  reponse.head = global.CAS_REUSSITE;
                   reponse.token = newToken;
                   return res.send(reponse);
                 }
               });
             }
             else{
-              reponse.head = 'error';
-              reponse.message = 'Erreur création membre';
+              reponse.head = global.CAS_ERREUR_SERVEUR;
               return res.send(reponse);
             }
           });
