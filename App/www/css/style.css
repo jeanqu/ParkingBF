@@ -101,7 +101,23 @@
     text-align: center;
     margin: auto;
 }
-.conteneur_message_pas_de_voitures{
+.conteneur_message_pas_de_voitures {
     text-align: center;
     margin: auto;
+}
+.button_valid_add_car{
+    max-height: 47px;
+}
+.button_valid_add_car div {
+    display: inline-block;
+}
+.formulaireAjoutVoiture .loader{
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0 12px;
+    min-width: 52px;
+    min-height: 47px;
+    background-image: url("/img/LoaderBlanc40.gif");
+    background-repeat: no-repeat;
 }

@@ -8,8 +8,8 @@ angular.module('starter.controllers', [])
   $scope.erreurMesVoitures = false;
   $scope.pasDeVoitures = false;
   $scope.newCar = {name: null, matricule: null};
-
-  voiture.getAllMyCarFromToken($window.localStorage.getItem('token'), function(res) 
+  console.log('mon token est' + Main.getToken());
+  voiture.getAllMyCarFromToken(Main.getToken(), function(res) 
   {
       if (res.type === false) 
       {
@@ -40,9 +40,46 @@ angular.module('starter.controllers', [])
 
   $scope.ajouterVoiture = function() 
   {
+    $scope.loadingMesVoitures = true;
+    $scope.erreurMesVoitures = false;
+    $scope.addEffected = false;
+    $scope.plaqueDejaExistante = false;
+    $scope.errorInDataSend = false;
+
     voiture.addACar($scope.newCar, function(res) 
       {
-
+        if (res.type === false) 
+        {
+            $scope.loadingMesVoitures = false;
+            $scope.erreurMesVoitures = true;
+        }
+        else if (res.head === globalVar.CAS_ERREUR_NON_CONNECTE)
+        {
+          $scope.loadingMesVoitures = false;
+          Main.logout(globalVar.CAS_ERREUR_NON_CONNECTE);
+        }
+        else if (res.head === globalVar.CAS_REUSSITE)
+        {
+          $scope.loadingMesVoitures = false;
+          $scope.addEffected = true;
+        } 
+        else if (res.head === globalVar.CAS_ACTION_NOT_ACHIVED)
+        {
+          $scope.loadingMesVoitures = false;
+          if (res.head_bis === globalVar.INACHEVE_OBJET_DEJA_UTILISE)
+          {
+            $scope.plaqueDejaExistante = true;
+          }
+          else
+          {
+            $scope.errorInDataSend = true;
+          }
+        }
+        else
+        {
+          $scope.loadingMesVoitures = false;
+          $scope.erreurMesVoitures = true;
+        }
       }, function() 
       {
           $scope.loadingMesVoitures = false;

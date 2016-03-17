@@ -6,6 +6,7 @@ angular.module('starter.services', ['ngResource'])
       $http.post(baseUrl + '/voiture', {token: data}).success(success).error(error);
     },
     addACar: function(data, success, error) {
+      //$http.post(baseUrl + '/addAcar', {newCar: data}).success(success).error(error);
       $http.post(baseUrl + '/addAcar', {newCar: data}).success(success).error(error);
     }
   }
@@ -25,8 +26,12 @@ angular.module('starter.services', ['ngResource'])
         "CAS_REUSSITE" : 3,
         "CAS_ERREUR_DATABASE" : 4,
         "CAS_COMPTE_DEJA_UTILISE" : 5,
+        "CAS_ACTION_NOT_ACHIVED" : 6,
 
-        "LIST_LANGAGES" : ["fr", "en"]
+        "INACHEVE_REQUEST_CHEATED" : 10,
+        "INACHEVE_OBJET_DEJA_UTILISE" : 11,
+
+        "LIST_LANGAGES" : ["fr", "en", "sp"]
 })
 .factory('Main', ['$http', '$window', '$location', 'globalVar', function($http, $window, $location, globalVar){
       var baseUrl = "http://localhost:5000";
@@ -88,6 +93,13 @@ angular.module('starter.services', ['ngResource'])
           },
           setNewToken: function(token, success) {
             $window.localStorage['token'] = token;
+          },
+          getToken: function(success, error) {
+            var token = $window.localStorage.getItem('token');
+            if (typeof token === 'undefined' || token === null) {
+                token = '';
+            }
+            return token;
           }
       };
   }

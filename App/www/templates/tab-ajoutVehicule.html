@@ -1,13 +1,5 @@
 <ion-view view-title={{TEXT.VEHICULEADD_TITLE}}>
   <ion-content>
-  	<div class="conteneur_loader" ng-if="loadingMesVoitures">
-      <div class="image">
-
-      </div>
-      <div class="texte">
-        {{TEXT.LOADING}}
-      </div>
-    </div>
     <div class="conteneur_message_erreur" ng-if="erreurMesVoitures">
       <div class="image">
 
@@ -16,8 +8,32 @@
         {{TEXT.ERROR_SERVER}}
       </div>
     </div>
-    
-     <div class="list list-inset">
+    <div class="conteneur_message_erreur" ng-if="errorInDataSend">
+      <div class="image">
+
+      </div>
+      <div class="texte">
+        {{TEXT.ERROR_DATA_SENDED}}
+      </div>
+    </div>
+    <div class="conteneur_message_erreur" ng-if="plaqueDejaExistante">
+      <div class="image">
+
+      </div>
+      <div class="texte">
+        {{TEXT.VEHICULE_ALREADY_EXIST}}
+      </div>
+    </div>
+    <div class="conteneur_message_reussite" ng-if="addEffected">
+      <div class="image">
+
+      </div>
+      <div class="texte">
+        {{TEXT.VEHICULE_ADDED}}
+      </div>
+    </div>
+
+     <div class="list list-inset formulaireAjoutVoiture">
         <form method="post">
             <label class="item item-input">
                 <input type="text" placeholder={{TEXT.VEHICULEADD_NAME_PLACEHOLDER}} ng-model="newCar.name">
@@ -26,7 +42,14 @@
                 <input type="text" placeholder={{TEXT.VEHICULEADD_MATRICULATION_PLACEHOLDER}} ng-model="newCar.matricule">
             </label>
         </form>
-        <button class="button icon-left ion-plus-circled button-positive" ng-click="ajouterVoiture(voiture)">{{TEXT.VEHICULEADD_BOUTTON_CONFIRMATE}}</button>
+        <button class="button icon-left ion-plus-circled button-positive button_valid_add_car" ng-click="ajouterVoiture(voiture)">
+          <div class="text" ng-if="!loadingMesVoitures" ng-if="!loadingMesVoitures">
+            {{TEXT.VEHICULEADD_BOUTTON_CONFIRMATE}}
+          </div>
+          <div class="loader" ng-if="loadingMesVoitures">
+          </div>
       </div>
+        </button>
+        
   </ion-content>
 </ion-view>

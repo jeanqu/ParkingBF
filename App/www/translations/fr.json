@@ -2,6 +2,7 @@
 	"LOADING" : "Chargement...",
 	"ERROR_SERVER" : "Erreur Serveur",
 	"ERROR_DATABASE" : "Erreur avec la base de donnée",
+	"ERROR_DATA_SENDED" : "Les données envoyées ne sont pas cohérentes",
 
 	"CONNECT_TITLE" : "Connexion",
 	"CONNECT_LOGIN" : "Connexion",
@@ -27,11 +28,13 @@
 	"VEHICULE_TITLE" : "Mes Véhicules",
 	"VEHICULE_NO_CARS" : "Pas de voitures",
 	"VEHICULE_ADD_ONE" : "Nouveau",
+	"VEHICULE_ADDED" : "Le Véhicule a été ajouté",
 
 	"VEHICULEADD_TITLE" : "Ajout Véhicule",
 	"VEHICULEADD_NAME_PLACEHOLDER" : "Nom donné au véhicule (ex: \"ma belle voiture, ...\")",
 	"VEHICULEADD_MATRICULATION_PLACEHOLDER" : "Votre numéro de plaque",
 	"VEHICULEADD_BOUTTON_CONFIRMATE" : "Ajouter",
+	"VEHICULE_ALREADY_EXIST" : "Cette plaque d'immatriculation a déjà été rentrée!",
 
 	"SETTUP_TITLE" : "Réglages",
 	"SETTUP_RECEIVE_NOTIFICATION" : "Recevoir des notifications",

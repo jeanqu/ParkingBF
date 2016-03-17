@@ -1,0 +1,40 @@
+{
+	"LOADING" : "Cargando...",
+	"ERROR_SERVER" : "Error del servidor",
+	"ERROR_DATABASE" : "Error de la base de datos",
+
+	"CONNECT_TITLE" : "Entrar",
+	"CONNECT_LOGIN" : "Entrar",
+	"CONNECT_SIGNUP" : "Crear cuenta",
+	"CONNECT_PLACEHOLDER_MAIL" : "Correo electrónico",
+	"CONNECT_PLACEHOLDER_PASSWORD" : "Contraseña",
+	"CONNECT_WRONG_IDENTIFICATION" : "Usuario o contraseña incorrectos",
+	"CONNECT_INSCRIPTION_MAIL_ALREADY-USED" : "Su correo electrónico ya está registrado",
+	"CONNECT_CREATION_MEMBER" : "Cuenta creada",
+
+	"ALERT_TITLE" : "Avisar",
+	"ALERT_ENTER_NUM_PLAQUE": "Coloque aquí el número de la matrícula",
+	"ALERT_TEXT_COMMENT" : "Añadir un comentario",
+	"ALERT_BOUTON_ENVOYER" : "Enviar",
+
+	"HISTORICAL_TITLE" : "Histórico",
+
+	"CONFIRMATION_TITLE" : "Confirmación",
+	"CONFIRMATION_QUESTION_CONFIRM" : "¿Esta seguro de enviar el mensaje a %PERSONNE%?",
+	"CONFIRMATION_BOUTON_NO" : "Cancelar",
+	"CONFIRMATION_BOUTON_YES" : "Confirmar",
+
+	"VEHICULE_TITLE" : "Mis vehículos",
+	"VEHICULE_NO_CARS" : "No existen vehículos registrados",
+	"VEHICULE_ADD_ONE" : "Añadir",
+
+	"VEHICULEADD_TITLE" : "Añadir vehículo",
+	"VEHICULEADD_NAME_PLACEHOLDER" : "Nombre del vehículo (por ejemplo: \"Paquetera, ...\")",
+	"VEHICULEADD_MATRICULATION_PLACEHOLDER" : "Número de la mátricula",
+	"VEHICULEADD_BOUTTON_CONFIRMATE" : "Añadir",
+
+	"SETTUP_TITLE" : "Ajustes",
+	"SETTUP_RECEIVE_NOTIFICATION" : "Recibir notificaciones",
+	"SETTUP_BOUTTON_DECONNECT" : "Desconectar",
+	"SETTUP_CHANGE_LANGAGE" : "Cambiar idioma"
+}
