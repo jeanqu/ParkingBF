@@ -121,3 +121,8 @@
     background-image: url("/img/LoaderBlanc40.gif");
     background-repeat: no-repeat;
 }
+
+/* Bar du bas */
+.bar_invisible {
+    position: absolute;
+}

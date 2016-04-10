@@ -25,7 +25,7 @@
       </div>
     </div>
     <ion-list ng-if="!loadingMesVoitures">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="voiture in mesVoitures" type="item-text-wrap" href="#/tab/chats/{{voiture.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="voiture in mesVoitures" type="item-text-wrap" href="#/tab/vehicule/{{voiture.id}}">
         <img ng-src="{{voiture.face}}">
         <h2>{{voiture.name}}</h2>
         <p>{{voiture.numImatriculation}}</p>

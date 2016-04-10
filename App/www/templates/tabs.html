@@ -25,11 +25,14 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>
 
-<!-- Ici les pages qu'on ne veut pas apercevoir dans la nav bar du bas-->
-<ion-tab><ion-nav-view name="connection"></ion-nav-view></ion-tab>
+  <div class="bar_invisible">
+    <!-- Ici les pages qu'on ne veut pas apercevoir dans la nav bar du bas-->
+    <ion-tab><ion-nav-view name="connection"></ion-nav-view></ion-tab>
 
-<ion-tab><ion-nav-view name="tab-confirmation"></ion-nav-view></ion-tab>
-<ion-tab><ion-nav-view name="tab-ajoutVehicule"></ion-nav-view></ion-tab>
+    <ion-tab><ion-nav-view name="tab-confirmation"></ion-nav-view></ion-tab>
+    <ion-tab><ion-nav-view name="tab-ajoutVehicule"></ion-nav-view></ion-tab>
+    <ion-tab><ion-nav-view name="tab-vehicule"></ion-nav-view></ion-tab>
+  </div>
 
 
 </ion-tabs>
